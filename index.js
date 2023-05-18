@@ -57,7 +57,8 @@ async function run() {
                price: body.price,
                rating: body.rating,
                quantity: body.quantity,
-               details: body.details
+               details: body.details,
+               selectedCategory: body.selectedCategory
              },
          }
          const result = await toysCollection.updateOne(filter, updateToy);
