@@ -44,6 +44,15 @@ async function run() {
          res.send(result);
      })
 
+     // to get a single toy info
+     app.get("/myToy/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      const result = await toysCollection.findOne(filter);
+      res.send(result)})
+
+
+
      app.put("/updateToy/:id", async(req,res)=>{
          const id = req.params.id;
          const filter = {_id: new ObjectId(id)};
