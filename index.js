@@ -30,8 +30,6 @@ async function run() {
     // create collection:
     const toysCollection = client.db("toyDB").collection("toys");
 
-    // Creating index on two fields
-    // Replace field1 and field2 with your actual field names
     const indexKeys = { toyName: 1 };
     const indexOptions = { name: "titleCategory" };
     const result = await toysCollection.createIndex(indexKeys, indexOptions);
@@ -43,9 +41,12 @@ async function run() {
       res.send(result);
     });
 
+    // send 20 toy data to client
     app.get("/myToy", async (req, res) => {
-      const cursor = toysCollection.find();
-      const result = await cursor.toArray();
+      const page = parseInt(req.query.page) || 0;
+      const limit = parseInt(req.query.limit) || 20;
+      const skip = page*limit;
+      const result = await toysCollection.find().skip(skip).limit(limit).toArray();
       res.send(result);
     });
 
@@ -87,15 +88,6 @@ async function run() {
       res.send(result);
     });
 
-    // app.get("/allJobsByCategory/:category", async (req, res) => {
-    //   console.log(req.params.id);
-    //   const jobs = await toysCollection
-    //     .find({
-    //       status: req.params.category,
-    //     })
-    //     .toArray();
-    //   res.send(jobs);
-    // });
 
     app.delete("/myToy/:id", async (req, res) => {
       const id = req.params.id;
