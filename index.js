@@ -46,7 +46,7 @@ async function run() {
       const page = parseInt(req.query.page) || 0;
       const limit = parseInt(req.query.limit) || 20;
       const skip = page*limit;
-      const result = await toysCollection.find().skip(skip).limit(limit).toArray();
+      const result = await toysCollection.find().sort({price:1}).skip(skip).limit(limit).toArray();
       res.send(result);
     });
 
