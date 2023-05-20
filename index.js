@@ -41,14 +41,36 @@ async function run() {
       res.send(result);
     });
 
-    // send 20 toy data to client
-    app.get("/myToy", async (req, res) => {
+    // send all toys to All toys page.
+    app.get("/allToys", async (req, res) => {
       const page = parseInt(req.query.page) || 0;
       const limit = parseInt(req.query.limit) || 20;
       const skip = page*limit;
       const result = await toysCollection.find().sort({price:1}).skip(skip).limit(limit).toArray();
       res.send(result);
     });
+
+    // toys for my toy page
+    app.get("/myToy", async (req, res) => {
+      const userEmail = req.query.userId; // Assuming the user email ID is provided as a query parameter
+    
+      const page = parseInt(req.query.page) || 0;
+      const limit = parseInt(req.query.limit) || 20;
+      const skip = page * limit;
+    
+      // Filter the toys collection by userEmail
+      const result = await toysCollection
+        .find({ sellerEmail: userEmail })
+        .sort({ price: 1 })
+        .skip(skip)
+        .limit(limit)
+        .toArray();
+    
+      res.send(result);
+    });
+    
+    
+    
 
     // to get a single toy info
     app.get("/myToy/:id", async (req, res) => {
