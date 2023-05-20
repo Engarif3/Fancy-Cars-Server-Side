@@ -29,10 +29,13 @@ async function run() {
     // await client.connect();
     // create collection:
     const toysCollection = client.db("toyDB").collection("toys");
+///////////////////////////////////////////////////////////////////////////////////
+    //comment below section for vercel deploy problem.
+    // const indexKeys = { toyName: 1 };
+    // const indexOptions = { name: "titleCategory" };
+    // const result = await toysCollection.createIndex(indexKeys, indexOptions);
 
-    const indexKeys = { toyName: 1 };
-    const indexOptions = { name: "titleCategory" };
-    const result = await toysCollection.createIndex(indexKeys, indexOptions);
+///////////////////////////////////////////////////////////////////////////////////////////
 
     // api test
     app.get("/", (req, res)=>{
