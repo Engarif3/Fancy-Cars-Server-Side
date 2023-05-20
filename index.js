@@ -52,7 +52,7 @@ async function run() {
 
     // toys for my toy page
     app.get("/myToy", async (req, res) => {
-      const userEmail = req.query.userId; // Assuming the user email ID is provided as a query parameter
+      const userEmail = req.query.userId;
     
       const page = parseInt(req.query.page) || 0;
       const limit = parseInt(req.query.limit) || 20;
